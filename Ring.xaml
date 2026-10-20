@@ -1,0 +1,39 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ Title="Codex 额度圆环" Width="38" Height="38" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent" FontFamily="Segoe UI Variable Text, Segoe UI, Microsoft YaHei UI" FontSize="12" ShowInTaskbar="False" ShowActivated="False" TextOptions.TextFormattingMode="Display">
+ <Window.Resources>
+  <SolidColorBrush x:Key="Surface" Color="#F9F9F9"/><SolidColorBrush x:Key="RingSurface" Color="#F2F3F6"/><SolidColorBrush x:Key="Text" Color="#1D1D1F"/>
+  <SolidColorBrush x:Key="Muted" Color="#8B8B90"/><SolidColorBrush x:Key="Line" Color="#E5E5E8"/>
+  <SolidColorBrush x:Key="Accent" Color="#339CFF"/><SolidColorBrush x:Key="Track" Color="#DDEBFA"/>
+  <LinearGradientBrush x:Key="QuotaGradient" StartPoint="0,0.5" EndPoint="1,0.5"><GradientStop Color="#087CF0" Offset="0"/><GradientStop Color="#339CFF" Offset="0.55"/><GradientStop Color="#76BEFF" Offset="1"/></LinearGradientBrush>
+  <Style TargetType="TextBlock"><Setter Property="Foreground" Value="{DynamicResource Text}"/></Style>
+  <Style TargetType="ContextMenu"><Setter Property="Background" Value="{DynamicResource Surface}"/><Setter Property="Foreground" Value="{DynamicResource Text}"/><Setter Property="BorderBrush" Value="{DynamicResource Line}"/><Setter Property="FontSize" Value="12"/></Style>
+ </Window.Resources>
+ <Grid>
+  <Button x:Name="RingButton" Padding="0" Background="Transparent" BorderThickness="0" Cursor="Hand" ToolTipService.IsEnabled="False">
+   <Button.Template><ControlTemplate TargetType="Button"><ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/></ControlTemplate></Button.Template>
+   <Grid Width="30" Height="30" x:Name="RingVisual">
+    <Ellipse Fill="{DynamicResource RingSurface}"/>
+    <Ellipse Stroke="{DynamicResource Track}" StrokeThickness="4" Margin="1"/>
+    <Path x:Name="RingArc" Stroke="{DynamicResource QuotaGradient}" StrokeThickness="4" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+    <Ellipse x:Name="RingFull" Stroke="{DynamicResource QuotaGradient}" StrokeThickness="4" Margin="1" Visibility="Collapsed"/>
+   </Grid>
+  </Button>
+  <Popup x:Name="DetailsPopup" PlacementTarget="{Binding ElementName=RingButton}" Placement="Custom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade" Focusable="True">
+   <Border x:Name="PopupCard" Width="192" Height="192" Margin="18" Padding="16" CornerRadius="23" Background="{DynamicResource Surface}" ToolTipService.IsEnabled="False">
+    <Border.Effect><DropShadowEffect BlurRadius="25" ShadowDepth="9" Opacity="0.14" Color="#000000"/></Border.Effect>
+    <StackPanel>
+     <StackPanel Orientation="Horizontal" Margin="0,0,0,11">
+      <Border Width="15" Height="15" CornerRadius="4" BorderBrush="{DynamicResource Text}" BorderThickness="1.2" VerticalAlignment="Center"><TextBlock Text="&gt;_" FontFamily="Consolas" FontWeight="Bold" FontSize="7" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+      <TextBlock Text="Codex" FontSize="13" FontWeight="SemiBold" Margin="7,-1,0,0"/>
+     </StackPanel>
+     <Grid><TextBlock x:Name="PrimaryLabel" Text="5 hours" FontSize="11" Foreground="{DynamicResource Muted}" VerticalAlignment="Center"/><TextBlock x:Name="PrimaryValue" Text="—" HorizontalAlignment="Right" FontWeight="SemiBold" FontSize="20"/></Grid>
+     <Grid Height="4" Margin="0,5,0,0"><Border Background="{DynamicResource Track}" CornerRadius="2"/><Border x:Name="PrimaryBar" Background="{DynamicResource QuotaGradient}" CornerRadius="2" Width="0" HorizontalAlignment="Left"/></Grid>
+     <TextBlock x:Name="PrimaryReset" Text="Resets in —" Foreground="{DynamicResource Muted}" FontSize="10" Margin="0,5,0,0"/>
+     <Grid Margin="0,12,0,0"><TextBlock x:Name="SecondaryLabel" Text="Weekly" FontSize="11" Foreground="{DynamicResource Muted}" VerticalAlignment="Center"/><TextBlock x:Name="SecondaryValue" Text="—" HorizontalAlignment="Right" FontWeight="SemiBold" FontSize="20"/></Grid>
+     <Grid Height="4" Margin="0,5,0,0"><Border Background="{DynamicResource Track}" CornerRadius="2"/><Border x:Name="SecondaryBar" Background="{DynamicResource QuotaGradient}" CornerRadius="2" Width="0" HorizontalAlignment="Left"/></Grid>
+     <TextBlock x:Name="SecondaryReset" Text="Resets in —" Foreground="{DynamicResource Muted}" FontSize="10" Margin="0,5,0,0"/>
+    </StackPanel>
+   </Border>
+  </Popup>
+ </Grid>
+</Window>

@@ -1,0 +1,27 @@
+name: Windows build
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and test
+        shell: powershell
+        run: .\test.ps1
+      - name: Package
+        shell: powershell
+        run: .\package.ps1
+      - name: Verify installation lifecycle
+        shell: powershell
+        run: .\tests\Installation.ps1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: codex-quota-widget-windows-x64
+          path: |
+            dist/*.zip
+            dist/*.sha256

@@ -1,0 +1,19 @@
+# Local settings, account diagnostics, and generated previews
+preferences.json*
+*probe.json
+error.log
+*test-results.json
+preview*.png
+*.lnk
+# Build outputs and local history
+*.exe
+*.pdb
+*.zip
+*.sha256
+out/
+dist/
+archive/
+design-reference/
+.vs/
+Thumbs.db
+Desktop.ini
