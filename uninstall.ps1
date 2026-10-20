@@ -1,6 +1,7 @@
 [CmdletBinding()]
-param([string]$InstallDirectory = $PSScriptRoot, [switch]$RemovePreferences)
+param([string]$InstallDirectory, [switch]$RemovePreferences)
 $ErrorActionPreference = 'Stop'
+if ([string]::IsNullOrWhiteSpace($InstallDirectory)) { $InstallDirectory = $PSScriptRoot }
 $InstallDirectory = [IO.Path]::GetFullPath($InstallDirectory)
 if ($InstallDirectory.TrimEnd('\') -eq [IO.Path]::GetPathRoot($InstallDirectory).TrimEnd('\')) { throw 'Refusing a drive root.' }
 $targetExe = Join-Path $InstallDirectory 'CodexQuota.exe'
